@@ -1,0 +1,41 @@
+\title{Practical Work 1}
+
+\date{\today}
+
+\documentclass[12pt]{article}
+
+\begin{document}
+\maketitle
+\begin{lstlisting}
+
+long@long:~/Desktop/randomThings/OS and Network/Network/network2019/PracticalWork1$ ping usth.edu.vn
+PING usth.edu.vn (104.27.160.15) 56(84) bytes of data.
+64 bytes from 104.27.160.15: icmp_seq=1 ttl=56 time=121 ms
+64 bytes from 104.27.160.15: icmp_seq=2 ttl=56 time=51.8 ms
+64 bytes from 104.27.160.15: icmp_seq=3 ttl=56 time=69.4 ms
+64 bytes from 104.27.160.15: icmp_seq=4 ttl=56 time=97.1 ms
+64 bytes from 104.27.160.15: icmp_seq=5 ttl=56 time=97.6 ms
+^C
+--- usth.edu.vn ping statistics ---
+5 packets transmitted, 5 received, 0% packet loss, time 4004ms
+rtt min/avg/max/mdev = 51.858/87.535/121.576/24.304 ms
+long@long:~/Desktop/randomThings/OS and Network/Network/network2019/PracticalWork1$ traceroute usth.edu.vn
+traceroute to usth.edu.vn (104.27.160.15), 30 hops max, 60 byte packets
+ 1  gateway (192.168.10.10)  18.128 ms  18.038 ms  17.987 ms
+ 2  ci96.120-46.netnam.vn (101.96.120.46)  15.853 ms  27.784 ms  29.868 ms
+ 3  static.netnam.vn (119.17.219.74)  29.862 ms static.netnam.vn (119.17.219.78)  31.170 ms  31.168 ms
+ 4  static.netnam.vn (119.17.219.17)  32.589 ms static.netnam.vn (119.17.219.13)  38.790 ms  46.720 ms
+ 5  203.113.156.25 (203.113.156.25)  46.720 ms static.netnam.vn (119.17.219.14)  46.642 ms 203.113.156.25 (203.113.156.25)  71.262 ms
+ 6  * localhost (27.68.229.49)  71.077 ms static.netnam.vn (119.17.219.17)  2.120 ms
+ 7  203.113.156.25 (203.113.156.25)  4.354 ms localhost (27.68.240.8)  27.056 ms  27.004 ms
+ 8  localhost (27.68.229.49)  32.938 ms 203.131.248.245 (203.131.248.245)  95.750 ms localhost (27.68.229.49)  27.583 ms
+ 9  ae-12.r03.tkokhk01.hk.bb.gin.ntt.net (129.250.5.254)  97.853 ms localhost (27.68.240.8)  32.760 ms  32.734 ms
+10  203.131.248.245 (203.131.248.245)  96.966 ms ae-11.r24.tkokhk01.hk.bb.gin.ntt.net (129.250.6.99)  97.588 ms 203.131.248.245 (203.131.248.245)  97.477 ms
+11  ae-12.r03.tkokhk01.hk.bb.gin.ntt.net (129.250.5.254)  97.543 ms ae-6.r20.sngpsi07.sg.bb.gin.ntt.net (129.250.7.66)  97.528 ms ae-12.r03.tkokhk01.hk.bb.gin.ntt.net (129.250.5.254)  97.410 ms
+12  ae-1.r01.sngpsi07.sg.bb.gin.ntt.net (129.250.3.100)  97.309 ms ae-11.r24.tkokhk01.hk.bb.gin.ntt.net (129.250.6.99)  97.192 ms ae-1.r01.sngpsi07.sg.bb.gin.ntt.net (129.250.3.100)  71.063 ms
+13  116.51.31.126 (116.51.31.126)  70.149 ms  64.940 ms ae-6.r20.sngpsi07.sg.bb.gin.ntt.net (129.250.7.66)  64.785 ms
+14  ae-1.r01.sngpsi07.sg.bb.gin.ntt.net (129.250.3.100)  110.347 ms 104.27.160.15 (104.27.160.15)  74.649 ms ae-1.r01.sngpsi07.sg.bb.gin.ntt.net (129.250.3.100)  88.388 ms
+
+\end{lstlisting}
+\end{document}
+This is never printed
