@@ -9,14 +9,14 @@ int main(int argc, char **argv) {
   struct hostent *hp;
   
   // check argument or STDIN
-  if (argc < 2 || argc > 2)
-  {
+  if (argc == 2)  {
+    hp = gethostbyname(argv[1]);
+
+  }else{
     char hostName[256];
     printf("Enter host name : \n");
     scanf("%s",&hostName);
     hp = gethostbyname(hostName);
-  }else{
-    hp = gethostbyname(argv[1]);
   }
 
   //check null hostent
