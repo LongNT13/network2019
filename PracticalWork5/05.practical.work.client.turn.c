@@ -28,6 +28,7 @@ int main(int argc, char const *argv[])
 		printf("Enter host name : \n");
 		scanf("%s",hostName);
 		h = gethostbyname(hostName);
+		getchar();
 	}
 
 	if(h == NULL) {
@@ -51,16 +52,16 @@ int main(int argc, char const *argv[])
 		printf("Cannot connect\n");
 		exit(-1);
 	}else{
-
 		while(1){
 			//send message
 			char mess[1000];
-			printf("client >  ");
+			printf("client >  ");	
+			
 			fgets(mess, 1000, stdin);
 			write(sockfd, mess, sizeof(mess));
-			char mess2[1000];
-			read(sockfd, mess2, sizeof(mess2));
-			printf("server > %s", mess2);
+
+			read(sockfd, mess, sizeof(mess));
+			printf("server > %s", mess);
 		}
 	}
 	return 0;
