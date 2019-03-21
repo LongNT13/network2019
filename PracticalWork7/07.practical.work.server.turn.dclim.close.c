@@ -43,18 +43,28 @@ int main(int argc, char const *argv[])
 			printf("successfully connected\n");
 			printf("waiting for message .... \n");
 			while(1){
+				//read message
 				char mess[1000];
-				int test =-1000;
-				if (test = read(clientfd, mess, sizeof(mess))<=0)
+				if (read(clientfd, mess, sizeof(mess))<=0)
 				{
-					printf("check : %d\n", test);
 					break;
 				}
+
 				//receive message
 				printf("client > %s", mess);
-				
 				printf("server > ");
 				fgets(mess, 1000, stdin);
+				if (strcmp("/dc\n",mess) == 0)
+				{
+					printf("shutting down client ...\n");
+					shutdown(clientfd, SHUT_RDWR);
+					int count;
+					char c;
+					while((count = read(clientfd, &c, sizeof(c))) > 0);
+					close(clientfd);
+					
+					continue;
+				}
 				write(clientfd, mess, sizeof(mess));
 			}
 		}		

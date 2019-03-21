@@ -73,18 +73,11 @@ int main(int argc, char const *argv[])
 			write(sockfd, mess, sizeof(mess));
 
 				//receive messsage
-			read(sockfd, mess, sizeof(mess));
-			printf("server > %s", mess);
-			if (strcmp("/dc\n",mess) == 0)
-			{
-				printf("shutting down client ...\n");
-				shutdown(sockfd, SHUT_RDWR);
-				int count;
-				char c;
-				while((count = read(sockfd, &c, sizeof(c))) > 0);
-				close(sockfd);
+			if(read(sockfd, mess, sizeof(mess)) <= 0){
 				exit(0);
 			}
+			printf("server > %s", mess);
+			
 		}
 	}		
 
