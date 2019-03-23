@@ -15,6 +15,7 @@ int main(int argc, char const *argv[])
 	int sockfd, clen, clientfd;
 	struct sockaddr_in saddr, caddr;
 	struct pollfd fdsServer[1];
+	struct pollfd fdsInput[1];
 	struct pollfd fdsClient[10];
 	unsigned short port = 8784;
 	if((sockfd=socket(AF_INET, SOCK_STREAM, 0)) < 0) {
@@ -50,14 +51,17 @@ int main(int argc, char const *argv[])
 	//initialize pollfd
 	memset(fdsServer, 0, sizeof(fdsServer));
 	memset(fdsClient, 0, sizeof(fdsClient));
+	memset(fdsInput, 0, sizeof(fdsInput));
 	fdsServer[0].fd = sockfd;//check accepting 
+	fdsServer[0].events = POLLIN;
+	fdsInput[0].fd=0;
 	fdsServer[0].events = POLLIN;
 
 	int currentSize = 0;
 
 	clen=sizeof(caddr);
 	while(1){
-		int temp = poll(fdsServer, 1, 5*1000);
+		int temp = poll(fdsServer, 1, 1000);
 		if (temp > 0)//server's file descriptors has a return event = POLLIN
 		{
 			while(1){
@@ -90,19 +94,24 @@ int main(int argc, char const *argv[])
 			{
 				while(1){
 					//read message
+					printf("server > \n");
+					
 					char mess[1000];
-					if (read(fdsClient[i].fd, mess, sizeof(mess))<=0)
+					int test = read(fdsClient[i].fd, mess, sizeof(mess));
+					if (test == 0)//disconnedted
 					{
+
 						// sort array after delete file descriptor, need more time on this
 						// currentSize--;
 						break;
+					}else if(test > 0){
+						printf("client %d > %s", i+1, mess);	
 					}
-					printf("client %d > %s", i, mess);	
 
-					int temp2 = poll(fdsServer, 1, 10*1000);
+					int temp2 = poll(fdsInput, 1, 1000);
+					printf("Return Poll Server %d\n", temp2);
 					if (temp2>0)
 					{					
-						printf("server > ");
 						fgets(mess, 1000, stdin);
 						if (strcmp("/dc\n",mess) == 0)
 						{

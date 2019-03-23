@@ -55,8 +55,7 @@ int main(int argc, char const *argv[])
 
 	//initialize pollfd
 	fds[0].fd = 0;
-	fds[0].events = 0;
-	fds[0].events |= POLLIN;
+	fds[0].events = POLLIN;
 	int timeout = 5*1000; // 5secs refresh every 5
 
 	//connect to server
@@ -74,8 +73,8 @@ int main(int argc, char const *argv[])
 		//set non block server
 		int flag = fcntl(sockfd, F_GETFL, 0);
 		fcntl(sockfd, F_SETFL, flag | O_NONBLOCK);
-
 		while(1){
+			printf("client >  \n");
 			char mess[1000];
 			
 			//receive messsage
@@ -83,14 +82,13 @@ int main(int argc, char const *argv[])
 				printf("server > %s", mess);				
 			}
 			//send message
-			// int temp = poll(fds, 1, timeout);
-			// if (temp == 0)
-			// {
-			// 	continue;
-			// }else if(temp==0){
+			int temp = poll(fds, 1, timeout);
+			if (temp == 0)
+			{
+				continue;
+			}else if(temp > 0){
 			
-				printf("client >  ");	
-
+			
 				fgets(mess, sizeof(mess), stdin);
 				if (strcmp("/quit\n",mess) == 0)
 				{
@@ -103,10 +101,10 @@ int main(int argc, char const *argv[])
 					exit(0);
 				}
 				write(sockfd, mess, sizeof(mess));
-			// }
-			// else{
-			// 	exit(-1);
-			// }
+			}
+			else{
+				exit(-1);
+			}
 			
 		}
 	}		
